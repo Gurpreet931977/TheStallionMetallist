@@ -444,7 +444,7 @@ const Hero = () => {
               
               <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
                 <motion.a 
-                  whileHover={isTouch ? undefined : { scale: 1.05 }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   href="#trade" 
                   className="btn btn-primary"
@@ -471,7 +471,7 @@ const Hero = () => {
                     whiteSpace: 'nowrap'
                   }}
                   initial="idle"
-                  whileHover={isTouch ? undefined : "hover"}
+                  whileHover="hover"
                   whileTap="tap"
                   variants={{
                     idle: { backgroundColor: 'var(--inv-card-bg)', scale: 1 },
@@ -494,22 +494,21 @@ const Hero = () => {
           </motion.div>
 
           {/* Right Side: The 3D Crushed Metal Block */}
-          {!isMobile && (
-            <motion.div 
-              className="hero-3d-container"
-              whileTap={{ cursor: 'grabbing' }}
+          <motion.div 
+            className="hero-3d-container"
+            whileTap={{ cursor: 'grabbing' }}
+            style={{ position: isMobile ? 'absolute' : 'relative', zIndex: 0, opacity: isMobile ? 0.3 : 1, pointerEvents: 'none' }}
+          >
+            <Canvas 
+              camera={{ fov: 60, position: [0, 0, 4.5] }} 
+              dpr={[1, 2]} 
+              shadows
+              gl={{ alpha: true, antialias: true }}
+              style={{ background: 'transparent', width: '100%', height: '100%' }}
             >
-              <Canvas 
-                camera={{ fov: 60, position: [0, 0, 4.5] }} 
-                dpr={[1, 2]} 
-                shadows
-                gl={{ alpha: true, antialias: true }}
-                style={{ background: 'transparent', width: '100%', height: '100%' }}
-              >
-                <SceneContainer scrollProgress={scrollYProgress} globalMouse={globalMouse} isCanvasHovered={isCanvasHovered} />
-              </Canvas>
-            </motion.div>
-          )}
+              <SceneContainer scrollProgress={scrollYProgress} globalMouse={globalMouse} isCanvasHovered={isCanvasHovered} />
+            </Canvas>
+          </motion.div>
 
         </div>
       </section>

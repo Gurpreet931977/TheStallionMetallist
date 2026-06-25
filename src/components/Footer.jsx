@@ -9,10 +9,10 @@ const Footer = ({ theme }) => {
           <div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }} className="footer-brand-container">
               <img 
-                src="/brand/Stallion logo with transparent bg.png" 
+                src="/brand/logo.svg" 
                 alt="Stallion Metallist Logo" 
                 className="footer-logo"
-                style={{ filter: theme === 'light' ? 'invert(1) hue-rotate(180deg) brightness(0.2)' : 'none' }} 
+                style={{ height: '72px', objectFit: 'contain', marginBottom: '1rem' }} 
               />
               <div style={{ 
                 fontSize: '1rem', 
@@ -21,7 +21,8 @@ const Footer = ({ theme }) => {
                 fontFamily: "'Montserrat', sans-serif",
                 lineHeight: 1,
                 marginTop: '-0.5rem',
-                marginBottom: '1rem'
+                marginBottom: '1rem',
+                display: 'none'
               }} className="footer-brand-text">
                 <span style={{ fontWeight: 300 }}>THE STALLION</span>{' '}
                 <span style={{ fontWeight: 800 }}>METALLIST</span>

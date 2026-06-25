@@ -30,21 +30,21 @@ const Header = ({ theme, toggleTheme }) => {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '60px', padding: '0 2rem' }} className="header-inner">
           <Link to="/" onClick={closeMenu} style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none' }}>
             <img 
-              src="/brand/Stallion logo with transparent bg.png" 
+              src="/brand/logo.svg" 
               alt="Stallion Metallist Logo" 
               style={{ 
-                height: '42px', 
-                objectFit: 'contain', 
-                filter: theme === 'light' ? 'invert(1) hue-rotate(180deg) brightness(0.2)' : 'none', 
-                transition: 'filter 0.3s' 
+                height: '60px', 
+                objectFit: 'contain',
+                transition: 'transform 0.3s' 
               }} 
             />
             <div style={{ 
-              fontSize: '0.95rem', 
+              fontSize: '1.2rem', 
               letterSpacing: '1px', 
               color: 'var(--color-text-dark)', 
               fontFamily: "'Montserrat', sans-serif",
-              lineHeight: 1
+              lineHeight: 1,
+              display: 'none' /* Hidden since we removed text from logo */
             }}>
               <span style={{ fontWeight: 300 }}>THE STALLION</span>{' '}
               <span style={{ fontWeight: 800 }}>METALLIST</span>
@@ -61,7 +61,7 @@ const Header = ({ theme, toggleTheme }) => {
             <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center', borderLeft: '1px solid var(--color-border)', paddingLeft: '1.25rem' }}>
               <motion.button
                 onClick={toggleTheme}
-                whileHover={isTouch ? undefined : {}}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="theme-toggle-btn"
                 style={{
@@ -101,7 +101,7 @@ const Header = ({ theme, toggleTheme }) => {
           <div className="mobile-nav-toggle" style={{ display: 'none', alignItems: 'center', gap: '1rem' }}>
             <motion.button
               onClick={toggleTheme}
-              whileHover={isTouch ? undefined : {}}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               style={{
                 background: 'transparent',

@@ -1,21 +1,57 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X } from 'lucide-react';
 
-const isTouch = typeof window !== 'undefined' && window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+const tradeData = {
+  "HMS 1 & 2 (Heavy Melting Scrap)": {
+    title: "HMS 1 & 2 (Heavy Melting Scrap)",
+    desc: "High-quality HMS 1 & 2 scrap sourced from industrial and demolition sectors. Ideal for steel manufacturing, foundries, and recycling operations requiring reliable ferrous scrap materials."
+  },
+  "Shredded Scrap": {
+    title: "Shredded Scrap",
+    desc: "Processed and shredded ferrous scrap with low contamination levels, ensuring efficient melting, faster processing, and consistent performance for steel mills and recyclers."
+  },
+  "Cast Iron Scrap": {
+    title: "Cast Iron Scrap",
+    desc: "Premium cast iron scrap suitable for foundries, metal recyclers, and industrial manufacturing. Known for its high iron content and excellent remelting properties."
+  },
+  "Structural & Industrial Scrap": {
+    title: "Structural & Industrial Scrap",
+    desc: "Heavy structural steel and industrial scrap collected from factories, warehouses, construction sites, and infrastructure projects. Suitable for recycling and steel production."
+  },
+  "Aluminium (UBC, Taint Tabor, Zorba, Extrusion)": {
+    title: "Aluminium Scrap (UBC, Taint Tabor, Zorba, Extrusion)",
+    desc: "High-grade aluminium scrap including UBC, Taint Tabor, Zorba, and Extrusion grades. Widely used in recycling, secondary aluminium production, and manufacturing industries."
+  },
+  "Copper": {
+    title: "Copper Scrap",
+    desc: "Premium copper scrap sourced from electrical, industrial, and construction sectors. Valued for its high conductivity, recyclability, and demand across global metal markets."
+  },
+  "Brass": {
+    title: "Brass Scrap",
+    desc: "Quality brass scrap suitable for recycling and remanufacturing applications. Commonly used in plumbing, engineering, automotive, and industrial production sectors."
+  },
+  "Stainless Steel 304 / 316": {
+    title: "Stainless Steel Scrap (304 / 316)",
+    desc: "High-value stainless steel scrap in 304 and 316 grades, ideal for recycling, alloy production, and industrial manufacturing requiring corrosion-resistant materials."
+  }
+};
 
-const TradeItem = ({ text, delay }) => (
+const TradeItem = ({ text, delay, onClick }) => (
   <motion.li 
     initial={{ opacity: 0, x: -20 }}
     whileInView={{ opacity: 1, x: 0 }}
     transition={{ duration: 0.5, delay }}
-    whileHover={isTouch ? undefined : "hover"}
+    whileHover="hover"
+    whileTap={{ scale: 0.98 }}
+    onClick={onClick}
     style={{ 
       padding: '1.5rem 1rem', 
       borderBottom: '1px solid rgba(188,188,188,0.15)', 
       display: 'flex', 
       alignItems: 'center', 
       justifyContent: 'space-between',
-      cursor: 'crosshair',
+      cursor: 'pointer',
       position: 'relative',
       overflow: 'hidden'
     }}
@@ -45,6 +81,14 @@ const TradeItem = ({ text, delay }) => (
 );
 
 const Trade = () => {
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  React.useEffect(() => {
+    if (selectedItem) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'unset';
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [selectedItem]);
+
   return (
     <section id="trade" className="section">
       <div className="container">
@@ -81,10 +125,10 @@ const Trade = () => {
             
             <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem', color: 'var(--color-text-dark)', fontWeight: 800, letterSpacing: '-1px', zIndex: 1 }}>Ferrous</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, flex: 1, zIndex: 1 }}>
-              <TradeItem text="HMS 1 & 2 (Heavy Melting Scrap)" delay={0.1} />
-              <TradeItem text="Shredded Scrap" delay={0.2} />
-              <TradeItem text="Cast Iron Scrap" delay={0.3} />
-              <TradeItem text="Structural & Industrial Scrap" delay={0.4} />
+              <TradeItem text="HMS 1 & 2 (Heavy Melting Scrap)" delay={0.1} onClick={() => setSelectedItem("HMS 1 & 2 (Heavy Melting Scrap)")} />
+              <TradeItem text="Shredded Scrap" delay={0.2} onClick={() => setSelectedItem("Shredded Scrap")} />
+              <TradeItem text="Cast Iron Scrap" delay={0.3} onClick={() => setSelectedItem("Cast Iron Scrap")} />
+              <TradeItem text="Structural & Industrial Scrap" delay={0.4} onClick={() => setSelectedItem("Structural & Industrial Scrap")} />
             </ul>
           </motion.div>
           
@@ -102,14 +146,87 @@ const Trade = () => {
             
             <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem', color: 'var(--color-accent)', fontWeight: 800, letterSpacing: '-1px', zIndex: 1 }}>Non-Ferrous</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, flex: 1, zIndex: 1 }}>
-              <TradeItem text="Aluminium (UBC, Taint Tabor, Zorba, Extrusion)" delay={0.1} />
-              <TradeItem text="Copper" delay={0.2} />
-              <TradeItem text="Brass" delay={0.3} />
-              <TradeItem text="Stainless Steel 304 / 316" delay={0.4} />
+              <TradeItem text="Aluminium (UBC, Taint Tabor, Zorba, Extrusion)" delay={0.1} onClick={() => setSelectedItem("Aluminium (UBC, Taint Tabor, Zorba, Extrusion)")} />
+              <TradeItem text="Copper" delay={0.2} onClick={() => setSelectedItem("Copper")} />
+              <TradeItem text="Brass" delay={0.3} onClick={() => setSelectedItem("Brass")} />
+              <TradeItem text="Stainless Steel 304 / 316" delay={0.4} onClick={() => setSelectedItem("Stainless Steel 304 / 316")} />
             </ul>
           </motion.div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedItem && tradeData[selectedItem] && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedItem(null)}
+              style={{
+                position: 'fixed',
+                inset: 0,
+                background: 'rgba(0,0,0,0.6)',
+                backdropFilter: 'blur(5px)',
+                zIndex: 1000
+              }}
+            />
+            <div style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 1001,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              pointerEvents: 'none',
+              padding: '1rem'
+            }}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                style={{
+                  background: 'var(--color-primary)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '24px',
+                  padding: '2.5rem',
+                  maxWidth: '500px',
+                  width: '100%',
+                  pointerEvents: 'auto',
+                  position: 'relative',
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }}
+              >
+                <button 
+                  onClick={() => setSelectedItem(null)}
+                  style={{
+                    position: 'absolute',
+                    top: '1.5rem',
+                    right: '1.5rem',
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--color-text-dark)',
+                    cursor: 'pointer',
+                    padding: '0.5rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '50%',
+                  }}
+                >
+                  <X size={24} />
+                </button>
+                <h3 style={{ fontSize: '1.75rem', marginBottom: '1rem', color: 'var(--color-text-dark)', fontWeight: 800, paddingRight: '2rem' }}>
+                  {tradeData[selectedItem].title}
+                </h3>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', lineHeight: 1.6, margin: 0 }}>
+                  {tradeData[selectedItem].desc}
+                </p>
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

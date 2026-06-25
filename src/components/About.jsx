@@ -16,7 +16,7 @@ const About = () => {
           >
             <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>At a Glance</h2>
             <p style={{ fontSize: '1.1rem', marginBottom: '2rem', color: 'var(--color-text-muted)' }}>
-              Stallion Metallist Ltd. is an international metal scrap trading company incorporated in Calgary, Canada, with active operations across India.
+              Stallion Metallist Ltd. is an international metal scrap trading company incorporated as a Canadian company in Calgary, with active operations across India.
             </p>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               <li style={{ padding: '1rem 0', borderBottom: '1px solid var(--color-border)', display: 'flex', gap: '1rem' }}>
@@ -67,11 +67,11 @@ const About = () => {
               Stallion Metallist operates as a full-cycle international trade entity - from supplier identification and price negotiation to shipment coordination and Indian customs clearance.
             </p>
             <ul style={{ paddingLeft: '1.2rem', color: 'var(--color-text-dark)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <li>Supplier sourcing across UAE, China, Europe, and North America through direct relationships.</li>
+              <li>Supplier sourcing across <strong style={{ color: 'var(--color-accent)' }}>UAE, China, Europe, and North America</strong> through direct relationships.</li>
               <li>Negotiation and contract execution with international exporters.</li>
-              <li>Import documentation, customs clearance, and port coordination at Mundra, Kandla, and JNPT.</li>
-              <li>Buyer fulfilment to recyclers, melting furnaces, and industrial manufacturers in the Gujarat industrial belt.</li>
-              <li>Payment terms structured around international trade standards - LC at sight and T/T arrangements.</li>
+              <li>Import documentation, customs clearance, and port coordination at <strong style={{ color: 'var(--color-accent)' }}>Mundra, Kandla, and JNPT</strong>.</li>
+              <li>Buyer fulfilment to recyclers, melting furnaces, and industrial manufacturers in the <strong style={{ color: 'var(--color-accent)' }}>Gujarat</strong> industrial belt.</li>
+              <li>Payment terms structured around international trade standards - <strong style={{ color: 'var(--color-accent)' }}>LC at sight and T/T</strong> arrangements.</li>
             </ul>
           </motion.div>
         </div>

@@ -39,18 +39,12 @@ const services = [
     image: '/images/demolition_services.png',
     span: 'col-span-1'
   },
-  {
-    id: 'ewaste',
-    title: 'E-Waste Recycling',
-    description: 'Futuristic and highly organized electronic waste recycling, recovering precious metals from circuit boards and components. We ensure full data destruction compliance and maximum environmental stewardship.',
-    image: '/images/ewaste_recycling.png',
-    span: 'col-span-1'
-  }
 ];
 
 const Services = () => {
   const isTouch = typeof window !== 'undefined' && window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const [selectedInstance, setSelectedInstance] = useState(null);
+  const [showContact, setShowContact] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   
@@ -170,7 +164,8 @@ const Services = () => {
                 }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                whileHover={isTouch ? undefined : { y: -8, transition: { duration: 0.3 } }}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                whileTap={{ scale: 0.98 }}
               >
                 <motion.div 
                   style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}
@@ -208,7 +203,7 @@ const Services = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setSelectedInstance(null)}
+              onClick={() => { setSelectedInstance(null); setShowContact(false); }}
             />
             <div className="modal-container-wrapper">
               <motion.div 
@@ -223,7 +218,7 @@ const Services = () => {
                   transition={{ duration: 0.3, delay: 0.1 }}
                   style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
                 >
-                  <button className="close-btn" onClick={() => setSelectedInstance(null)}>
+                  <button className="close-btn" onClick={() => { setSelectedInstance(null); setShowContact(false); }}>
                     <X size={24} />
                   </button>
                   
@@ -242,10 +237,36 @@ const Services = () => {
                   <div className="modal-body">
                     <p className="modal-desc">{selectedService.description}</p>
                     
-                    <div className="modal-actions">
-                      <button className="btn btn-primary modal-action-btn">
-                        Get a Quote <ChevronRight size={18} />
-                      </button>
+                    <div className="modal-actions" style={{ position: 'relative' }}>
+                      <AnimatePresence mode="wait">
+                        {!showContact ? (
+                          <motion.button 
+                            key="quote"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="btn btn-primary modal-action-btn" 
+                            onClick={() => setShowContact(true)}
+                          >
+                            Get a Quote <ChevronRight size={18} />
+                          </motion.button>
+                        ) : (
+                          <motion.div 
+                            key="contact"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            style={{ display: 'flex', gap: '1rem', width: '100%', flexWrap: 'wrap' }}
+                          >
+                            <a href="mailto:trade@stallionmetallist.com" className="btn btn-primary" style={{ flex: 1, textAlign: 'center', justifyContent: 'center' }}>
+                              Email Us
+                            </a>
+                            <a href="tel:+14165550198" className="btn" style={{ flex: 1, textAlign: 'center', justifyContent: 'center', background: 'var(--color-border)', color: 'var(--color-text-dark)', border: 'none' }}>
+                              Call Us
+                            </a>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
                 </motion.div>
